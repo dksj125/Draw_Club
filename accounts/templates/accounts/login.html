@@ -1,0 +1,14 @@
+{% extends 'base_accounts.html' %}
+{% load socialaccount %}
+{% load bootstrap4 %}
+{% load static %}
+{% block body %}
+
+<div class="container-fluid">
+  <div class="row mt-5 ">
+    <a class="mx-auto" href="{% provider_login_url 'kakao' method='oauth2' %}"><img
+      src="{%static 'img/kakao_login_large_wide.png'%}" /></a>
+  </div>
+</div>
+
+{% endblock %}

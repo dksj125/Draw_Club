@@ -1,0 +1,143 @@
+/* 공용 */
+body{
+    font-family: 'Noto Sans KR', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: url("/static/img/background.jpg") no-repeat center;
+    background-size: cover;
+}
+
+body::before{
+    content: "";
+    position: absolute; z-index:1;
+    top: 0; right: 0; bottom: 0; left: 0;
+    background-color: rgba(0,0,0,0.7);
+}
+
+section {
+    position: relative;
+    width:600px;
+    z-index: 2;
+}
+
+section h1{   
+    font-size:48px; color:#fff;
+    margin-bottom:40px;
+}
+
+
+@media screen and (max-width: 768px) {
+    section{
+        width:95%;
+    }
+    section h1{   
+        font-size:32px;
+        margin-bottom:20px;
+    }
+}
+
+
+
+
+/*main*/
+.int-area{
+    position: relative;
+    margin:20px auto 0;
+}
+
+.int-area:first-child{margin-top: 0;}
+
+.int-area input{
+    width:100%;
+    padding: 20px 10px 10px;
+    background-color: transparent;
+    border: none;
+    border-bottom: 1px solid #999;
+    font-size: 18px; color:#fff;
+    outline: none;
+}
+.int-area label {
+    position: absolute; left: 10px; top: 15px;
+    font-size: 18px; color:#999;
+    transition: top .5s ease;
+}
+
+.int-area input:focus + label,
+.int-area input:valid + label{
+    top: -2px;
+    font-size: 13px; color: #166cea;
+}
+
+.btn-area {margin-top: 30px;}
+
+.btn-area .button {
+    display:block;
+    width: 100%; height: 50px;
+    background: #166cea;
+    line-height:50px;
+    text-align:center;
+    color: #fff;
+    font-size: 20px;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+}
+
+.caption{
+    margin-top: 20px;
+    text-align: center;
+}
+
+.caption a{
+    font-size: 15px; color: #999;
+    text-decoration: none;
+}
+
+.finish-form{
+    text-align:center;
+    color: #fff;
+    font-size: 50px;
+}
+
+
+
+
+
+
+
+/*club*/
+.check{
+    position: relative;
+    margin:20px auto 0;
+}
+
+.check p{
+    width:100%;
+    padding: 20px 10px 10px;
+    background-color: transparent;
+    border: none;
+    border-bottom: 1px solid #999;
+    font-size: 18px; color:#fff;
+    outline: none;
+
+}
+
+
+.check label {
+    font-size: 18px; color:#fff;
+    outline: none;
+    margin-right:15px;
+}
+
+
+@media screen and (max-width: 768px) {
+    .check label {
+        font-size: 18px;
+        margin-right:0;
+        display:inline-block;
+        width:24%;
+        margin:10px 0;
+    }
+}
