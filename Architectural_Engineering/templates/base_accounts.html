@@ -1,42 +1,49 @@
 {% load bootstrap4 %}
 {% load static %}
-
 <!DOCTYPE html>
-
-<html lang="en">
+<html lang="ko">
 
 <head>
   <!-- Latest compiled and minified CSS -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-
   <!-- jQuery library -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
   <!-- Popper JS -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-
   <!-- Latest compiled JavaScript -->
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-  
-  <style>
-    body {
-      font-family: 'Noto Sans KR', sans-serif;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      background: url("/static/img/background.jpg") no-repeat center;
-      background-size: cover;
-      background-color: rgba(0, 0, 0, 0.7);
-    }
-  </style>
+
   {% block head %}
   {% endblock %}
 </head>
 
 <body>
-  {% block body %}
-  {% endblock %}
+  <div class="container-fluid">
+    <section class="w-100">
+      <ul class="nav justify-content-end">
+        {% if user.is_authenticated %}
+        <li class="nav-item">
+          <a class="nav-link text-white" href="{% url 'accounts:logout' %}">로그아웃</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-white" href="{% url 'accounts:update' %}">개인정보 수정</a>
+        </li>
+        {% else %}
+        <li class="nav-item">
+          <a class="nav-link text-white" href="{% url 'accounts:login' %}">로그인</a>
+        </li>
+        {% endif%}
+      </ul>
+    </section>
+    <div class="row text-center">
+      <div class="before w-100">
+        <div class="body w-100">
+          {% block body %}
+          {% endblock %}
+        </div>
+      </div>
+    </div>
+  </div>
 </body>
 
 </html>

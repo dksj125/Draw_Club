@@ -1,3 +1,4 @@
+{% extends 'base_accounts.html' %}
 {% load bootstrap4 %}
 <html>
 
@@ -15,30 +16,38 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 
     <!-- Latest compiled JavaScript -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script> 
-<style>
-    .form-group>label{
-    font-size:xx-large;
-    margin-right: 10px; 
-    color:#fff;
-}
-</style>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    {% block head %}
+    <title>당신의 선택은?</title>
+    <link rel="stylesheet" href="/static/css/reset.css">
+    <link rel="stylesheet" href="/static/css/main.css">
+    <style>
+        .form-group > label {
+            font-size: xx-large;
+            margin-right: 10px;
+            color: #fff;
+        }
+    </style>
+    {% endblock %}
 </head>
 
 <body>
-    <section class="choose-form">
+    {% block body %}
+    <section class="choose-form w-50">
         <h1>당신의 선택은?</h1>
         <form action="{% url 'draw:select_finish' %}" method="post">
             {% csrf_token %}
             <input type="hidden" name="name" value={{name}} />
             <input type="hidden" name="student_no" value={{student_no}} />
             {% bootstrap_form form %}
-            
+
             <div class="btn-area">
                 <button class="button" type="submit"> 제출 </button>
             </div>
         </form>
     </section>
+    {% endblock %}
 </body>
 
 

@@ -21,6 +21,7 @@ urlpatterns = [
     path('', accounts.views.login),
     path('admin/', admin.site.urls),
     path('draw/', include('draw.urls')),
+    path('manager/', include('manager.urls')),
     path('accounts/', include('accounts.urls')),
     path('accounts/', include('allauth.urls')),
     

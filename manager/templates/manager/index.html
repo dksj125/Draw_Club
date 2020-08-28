@@ -1,0 +1,72 @@
+{% load bootstrap4 %}
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <!-- Popper JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    {% block head %}
+    {% endblock %}
+</head>
+
+<body class="bg-dark">
+    <div class="container-fluid bg-dark">
+        <ul class="nav justify-content-end">
+            {% if user.is_authenticated %}
+            <li class="nav-item">
+                <a class="nav-link text-white" href="{% url 'accounts:logout' %}">로그아웃</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-white" href="{% url 'accounts:update' %}">개인정보 수정</a>
+            </li>
+            {% else %}
+            <li class="nav-item">
+                <a class="nav-link text-white" href="{% url 'accounts:login' %}">로그인</a>
+            </li>
+            {% endif%}
+        </ul>
+        <div class="row">
+            <div class="col-xl-2"></div>
+            <div class="col-xl-8">
+                <table class="table-dark table-striped w-100">
+                    <thead>
+                        <th class="py-2">이름</th>
+                        <th>학번</th>
+                        <th>1지망</th>
+                        <th>2지망</th>
+                        <th>3지망</th>
+                    </thead>
+                    <tbody>
+                        {% for data in draw %}
+                        <tr>
+                            <td>{{ data.user.user.username }}</td>
+                            <td class="py-2">{{ data.user.student_no }}</td>
+                            <td>{{ data.first }}</td>
+                            <td>{{ data.second }}</td>
+                            <td>{{ data.third }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                <br>
+                <form action="{% url 'manager:draw_result' %}" method="POST">
+                    {% csrf_token %}
+                    <span class="text-white">작업실 별 최소인원 : </span> <input type="number" name='i' class="form-number-input"></input>
+                    <br>
+                    <br>
+                    <button class="btn btn-primary btn-block" type="submit"> 배정하기</button>
+                </form>
+            </div>
+            <div class="col-xl-2"></div>
+        </div>
+        
+        <div class="row py-5"></div>
+    </div>
+</body>

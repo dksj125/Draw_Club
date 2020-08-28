@@ -53,7 +53,8 @@ INSTALLED_APPS = [
     # apps
     'draw',
     'accounts',
-
+    'manager',
+    
     # allauth
     'allauth',
     'allauth.account',

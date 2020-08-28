@@ -1,0 +1,164 @@
+{% load bootstrap4 %}
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <!-- Popper JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    {% block head %}
+    {% endblock %}
+</head>
+
+<body class=" bg-dark">
+    <div class="container-fluid bg-dark">
+        <ul class="nav justify-content-end">
+            {% if user.is_authenticated %}
+            <li class="nav-item">
+                <a class="nav-link text-white" href="{% url 'accounts:logout' %}">로그아웃</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-white" href="{% url 'accounts:update' %}">개인정보 수정</a>
+            </li>
+            {% else %}
+            <li class="nav-item">
+                <a class="nav-link text-white" href="{% url 'accounts:login' %}">로그인</a>
+            </li>
+            {% endif%}
+        </ul>
+        <div class="row mt-5">
+            <div class="col-xl-1"></div>
+            <div class="col-xl-3">
+                <h1 class="text-white">작은공간</h1>
+                <table class="table-dark table-striped w-100">
+                    <thead>
+                        <th class="py-2">학번</th>
+                        <th>이름</th>
+                    </thead>
+                    <tbody>
+                        {% for student_no,name in result.Small_Space.items %}
+                        <tr>
+                            <td class="py-2">{{ student_no }}</td>
+                            <td>{{ name }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-xl-1"></div>
+            <div class="col-xl-3">
+                <h1 class="text-white">공간과 장소</h1>
+                <table class="table-dark table-striped w-100">
+                    <thead>
+                        <th class="py-2">학번</th>
+                        <th>이름</th>
+                    </thead>
+                    <tbody>
+                        {% for student_no,name in result.Space_Place.items %}
+                        <tr>
+                            <td class="py-2">{{ student_no }}</td>
+                            <td>{{ name }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-xl-1"></div>
+            <div class="col-xl-3">
+                <h1 class="text-white">뮤</h1>
+                <table class="table-dark table-striped w-100">
+                    <thead>
+                        <th class="py-2">학번</th>
+                        <th>이름</th>
+                    </thead>
+                    <tbody>
+                        {% for student_no,name in result.Mu.items %}
+                        <tr>
+                            <td class="py-2">{{ student_no }}</td>
+                            <td>{{ name }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="row mt-5">
+            <div class="col-xl-3">
+                <h1 class="text-white">소프</h1>
+                <table class="table-dark table-striped w-100">
+                    <thead>
+                        <th class="py-2">학번</th>
+                        <th>이름</th>
+                    </thead>
+                    <tbody>
+                        {% for student_no,name in result.Sof.items %}
+                        <tr>
+                            <td class="py-2">{{ student_no }}</td>
+                            <td>{{ name }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+             <div class="col-xl-3">
+                <h1 class="text-white">아키</h1>
+                <table class="table-dark table-striped w-100">
+                    <thead>
+                        <th class="py-2">학번</th>
+                        <th>이름</th>
+                    </thead>
+                    <tbody>
+                        {% for student_no,name in result.Arch.items %}
+                        <tr>
+                            <td class="py-2">{{ student_no }}</td>
+                            <td>{{ name }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-xl-3">
+                <h1 class="text-white">팀엑스</h1>
+                <table class="table-dark table-striped w-100">
+                    <thead>
+                        <th class="py-2">학번</th>
+                        <th>이름</th>
+                    </thead>
+                    <tbody>
+                        {% for student_no,name in result.Team_X.items %}
+                        <tr>
+                            <td class="py-2">{{ student_no }}</td>
+                            <td>{{ name }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-xl-3">
+                <h1 class="text-white">비작업실</h1>
+                <table class="table-dark table-striped w-100">
+                    <thead>
+                        <th class="py-2">학번</th>
+                        <th>이름</th>
+                    </thead>
+                    <tbody>
+                        {% for student_no,name in result.Nothing.items %}
+                        <tr>
+                            <td class="py-2">{{ student_no }}</td>
+                            <td>{{ name }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="row py-5"></div>
+        
+    </div>
+</body>
