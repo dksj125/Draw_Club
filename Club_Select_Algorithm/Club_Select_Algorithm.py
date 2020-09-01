@@ -1,6 +1,7 @@
 import random
 import pandas as pd
 
+
 # 각 작업실별 딕션너리를 선언
 
 Team_X = {}
@@ -11,8 +12,11 @@ Sof = {}
 Arch = {}
 Nothing = {}
 
+
+
 #작업실 최소 인원
 Min_Member = int(input("각 작업실별 최소 인원은?"))
+
 
 
 # 각 작업실별에 특정 키값을 선언해 딕셔너리를 선언
@@ -22,13 +26,18 @@ Club = {0 : "Team_X", 1 : "Small_Space" , 2 : "Space_Place", 3 : "Mu", 4 : "Sof"
 Club_Value = list(Club.values())
 
 
+
 # 신입생들이 지원한 작업실데이터를 불러옴
 
-New_Students = pd.read_csv('D:/Coding/Python/Recommend_date/New_Student.csv', encoding='CP949')
+New_Students = pd.read_csv('D:/Coding/Python/Recommend_date/Dummy_data/New_Student.csv', encoding='CP949')
+
+
 
 # 판다스 데이터 프레임을 리스트로 변환
 
 New_Students_List = New_Students.values.tolist()
+
+
 
 # 각 작업실 딕셔너리에 추가 하는 함수들
 
@@ -182,6 +191,78 @@ def From_Max_To_Min(Max_idx, Min_idx):
             Bool = False
 
 
+def Check_Second(Max_idx, Min_idx):
+     #팀엑스내에 2지망이 일치 하는가?    
+    if Max_idx == 0:
+        #팀엑스 딕셔너리에서 키값인 학번을 리스트로 만들기
+        Team_X_Key_List = list(Team_X.keys())
+        for idx in Team_X_Key_List:
+            for Student_info in New_Students_List:
+                if idx == Student_info[1]:
+                    if Student_info[3] == Club[Min_idx]:
+                        return True
+        return False
+
+                    
+    #작공내에 2지망이 일치 하는가?
+    elif Max_idx == 1:
+        #작공내에 2지망이 일치 하는가? 
+        Small_Space_Key_List = list(Small_Space.keys())
+        for idx in Small_Space_Key_List:
+            for Student_info in New_Students_List:
+                if idx == Student_info[1]:
+                    if Student_info[3] == Club[Min_idx]:
+                        return True
+        return False
+
+    #Space_Place내에 2지망이 일치 하는가?
+    elif Max_idx == 2:
+        #Space_Place내에 2지망이 일치 하는가? 
+        Space_Place_Key_List = list(Space_Place.keys())
+        for idx in Space_Place_Key_List:
+            for Student_info in New_Students_List:
+                if idx == Student_info[1]:
+                    if Student_info[3] == Club[Min_idx]:
+                        return True
+        return False
+                    
+    #Mu내에 2지망이 일치 하는가? 
+    elif Max_idx == 3:
+        #Space_Place내에 2지망이 일치 하는가? 
+        Mu_Key_List = list(Mu.keys())
+        for idx in Mu_Key_List:
+            for Student_info in New_Students_List:
+                if idx == Student_info[1]:
+                    if Student_info[3] == Club[Min_idx]:
+                        return True
+        return False
+
+    #Sof내에 2지망이 일치 하는가?
+    elif Max_idx == 4:
+        #Space_Place내에 2지망이 일치 하는가? 
+        Sof_Key_List = list(Sof.keys())
+        for idx in Sof_Key_List:
+            for Student_info in New_Students_List:
+                if idx == Student_info[1]:
+                    if Student_info[3] == Club[Min_idx]:
+                        return True
+        return False
+
+
+    #Arch내에 2지망이 일치 하는가? 
+    elif Max_idx == 5:
+        #Space_Place내에 2지망이 일치 하는가? 
+        Arch_Key_List = list(Arch.keys())
+        for idx in Arch_Key_List:
+            for Student_info in New_Students_List:
+                if idx == Student_info[1]:
+                    if Student_info[3] == Club[Min_idx]:
+                        return True
+        return False
+
+
+
+
 for i in New_Students_List:
     
     #1지망이 Team_X인 신입생
@@ -213,18 +294,222 @@ for i in New_Students_List:
 
 
 
+
+
 #모든 작업실에서 최소 인원을 충족하는가? 충족하지 않으면 가장 많은 신입생을 보유한 작업실에서 신입생을 최소로 보유한 작업실로 이동
+
+#cnt로 브레이크를 검
+cnt = 0
+Club_Member_Number_List = [len(Team_X),len(Small_Space),len(Space_Place),len(Mu),len(Sof),len(Arch)]
 while(len(Team_X) < Min_Member or len(Small_Space) < Min_Member or len(Space_Place) < Min_Member or len(Mu) < Min_Member or len(Sof) < Min_Member or len(Arch) < Min_Member):
-    
+
     Club_Member_Number_List = [len(Team_X),len(Small_Space),len(Space_Place),len(Mu),len(Sof),len(Arch)]
-   
-    #최대 인원은 몇명?
-    Max_Member = max(Club_Member_Number_List)
+
+    #Club_Member_Number_List를 Check로 복사
+    Check = Club_Member_Number_List[:]
 
     #최대 인원 가지고 있는 작업실 추출   
     Max_idx = Club_Member_Number_List.index(max(Club_Member_Number_List))
 
     #최소 인원 가지고 있는 작업실 추출
     Min_idx = Club_Member_Number_List.index(min(Club_Member_Number_List))
+    
+    Check1 = Check.pop(Check.index(max(Check)))
+    Check2 = Check.pop(Check.index(max(Check)))
+    if(Check1 == Check2):
+        cnt += 1
+        del Check[Max_idx]
+        Max_idx = Check.index(max(Check)) + 1
 
     From_Max_To_Min(Max_idx, Min_idx)
+    Check = Club_Member_Number_List
+    if(len(Team_X) >= Min_Member and len(Small_Space) >= Min_Member and len(Space_Place) >= Min_Member and len(Mu) >= Min_Member and len(Sof) >= Min_Member and len(Arch) >= Min_Member):
+        break
+    if(cnt == 1000):
+        break
+
+
+
+
+#최대 많이 지원 받은 작업실에서 2지망으로 최소 인원 작업실이랑 매칭 되지 않을때
+
+cnt = 0
+
+while True:
+
+    Club_Member_Number_List = [len(Team_X),len(Small_Space),len(Space_Place),len(Mu),len(Sof),len(Arch)]
+
+    if(min(Club_Member_Number_List) == Min_Member):
+        break
+
+    if(cnt == 1000):
+        break
+
+    #가장 많은 작업실추출
+    Max_Club = Club_Member_Number_List.index(max(Club_Member_Number_List))
+
+    #가장 적은 작업실 추출
+    Min_Club = Club_Member_Number_List.index(min(Club_Member_Number_List))
+
+    #Team_X가 가장 많을 경우
+    if Max_Club == 0:
+        key = random.choice(list(Team_X.keys()))
+        
+        #Small_Space에 보내기
+        if Min_Club == 1:
+            Small_Space_Add(key, Team_X[key])
+        
+        #Space_Place에 보내기
+        elif Min_Club == 2:
+            Space_Place_Add(key, Team_X[key])
+
+        #Mu에 보내기
+        elif Min_Club == 3:
+            Mu_Add(key, Team_X[key])
+
+        #소프에 보내기
+        elif Min_Club == 4:
+            Sof_Add(key, Team_X[key])
+
+        #아키에 보내기
+        elif Min_Club == 5:
+            Arch_Add(key, Team_X[key])
+        
+        Team_X.pop(key)
+
+    #Small_Space가 가장 많을 경우
+    elif Max_Club == 1:
+        key = random.choice(list(Small_Space.keys()))
+        
+        #Team_X에 보내기
+        if Min_Club == 0:
+            Team_X_Add(key, Small_Space[key])
+        
+        #Space_Place에 보내기
+        elif Min_Club == 2:
+            Space_Place_Add(key, Small_Space[key])
+
+        #Mu에 보내기
+        elif Min_Club == 3:
+            Mu_Add(key, Small_Space[key])
+
+        #소프에 보내기
+        elif Min_Club == 4:
+            Sof_Add(key, Small_Space[key])
+
+        #아키에 보내기
+        elif Min_Club == 5:
+            Arch_Add(key, Small_Space[key])
+
+        Small_Space.pop(key)
+
+
+    #Space_Place가 가장 많을 경우
+    elif Max_Club == 2:
+        key = random.choice(list(Space_Place.keys()))
+        
+        #Team_X에 보내기
+        if Min_Club == 0:
+            Team_X_Add(key, Space_Place[key])
+        
+        #Small_Space에 보내기
+        elif Min_Club == 1:
+            Small_Space_Add(key, Space_Place[key])
+
+        #Mu에 보내기
+        elif Min_Club == 3:
+            Mu_Add(key, Space_Place[key])
+
+        #소프에 보내기
+        elif Min_Club == 4:
+            Sof_Add(key, Space_Place[key])
+
+        #아키에 보내기
+        elif Min_Club == 5:
+            Arch_Add(key, Space_Place[key])
+
+        Space_Place.pop(key)
+
+
+    #Mu가 가장 많을 경우
+    elif Max_Club == 3:
+        key = random.choice(list(Mu.keys()))
+        
+        #Team_X에 보내기
+        if Min_Club == 0:
+            Team_X_Add(key, Mu[key])
+        
+        #Small_Space에 보내기
+        elif Min_Club == 1:
+            Small_Space_Add(key, Mu[key])
+
+        #Space_Place에 보내기
+        elif Min_Club == 2:
+            Space_Place_Add(key, Mu[key])
+
+        #소프에 보내기
+        elif Min_Club == 4:
+            Sof_Add(key, Mu[key])
+
+        #아키에 보내기
+        elif Min_Club == 5:
+            Arch_Add(key, Mu[key])
+
+        Mu.pop(key)
+
+
+  #Sof가 가장 많을 경우
+    elif Max_Club == 4:
+        key = random.choice(list(Sof.keys()))
+        
+        #Team_X에 보내기
+        if Min_Club == 0:
+            Team_X_Add(key, Sof[key])
+        
+        #Small_Space에 보내기
+        elif Min_Club == 1:
+            Small_Space_Add(key, Sof[key])
+
+        #Space_Place에 보내기
+        elif Min_Club == 2:
+            Space_Place_Add(key, Sof[key])
+
+        #Mu에 보내기
+        elif Min_Club == 3:
+            Mu_Add(key, Sof[key])
+
+        #Arch에 보내기
+        elif Min_Club == 5:
+            Arch_Add(key, Sof[key])
+
+        Sof.pop(key)
+
+
+    #Arch가 가장 많을 경우
+    elif Max_Club == 5:
+        key = random.choice(list(Arch.keys()))
+        
+        #Team_X에 보내기
+        if Min_Club == 0:
+            Team_X_Add(key, Arch[key])
+        
+        #Small_Space에 보내기
+        elif Min_Club == 1:
+            Small_Space_Add(key, Arch[key])
+
+        #Space_Place에 보내기
+        elif Min_Club == 2:
+            Space_Place_Add(key, Arch[key])
+
+        #Mu에 보내기
+        elif Min_Club == 3:
+            Mu_Add(key, Arch[key])
+
+        #Sof에 보내기
+        elif Min_Club == 4:
+            Sof_Add(key, Arch[key])
+
+        Arch.pop(key)
+
+    #작업이 한번 끝나면 cnt 1씩증가
+    cnt += 1
