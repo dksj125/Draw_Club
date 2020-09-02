@@ -58,7 +58,7 @@
                 <br>
                 <form action="{% url 'manager:draw_result' %}" method="POST">
                     {% csrf_token %}
-                    <span class="text-white">작업실 별 최소인원 : </span> <input type="number" name='i' class="form-number-input"></input>
+                    <span class="text-white">작업실 별 최소인원 : </span> <input type="number" name='i' class="form-number-input" value="0"></input>
                     <br>
                     <br>
                     <button class="btn btn-primary btn-block" type="submit"> 배정하기</button>
