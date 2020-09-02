@@ -300,9 +300,10 @@ for i in New_Students_List:
 
 #cnt로 브레이크를 검
 cnt = 0
+clock = 0       #임시방편
 Club_Member_Number_List = [len(Team_X),len(Small_Space),len(Space_Place),len(Mu),len(Sof),len(Arch)]
 while(len(Team_X) < Min_Member or len(Small_Space) < Min_Member or len(Space_Place) < Min_Member or len(Mu) < Min_Member or len(Sof) < Min_Member or len(Arch) < Min_Member):
-
+    
     Club_Member_Number_List = [len(Team_X),len(Small_Space),len(Space_Place),len(Mu),len(Sof),len(Arch)]
 
     #Club_Member_Number_List를 Check로 복사
@@ -323,9 +324,10 @@ while(len(Team_X) < Min_Member or len(Small_Space) < Min_Member or len(Space_Pla
 
     From_Max_To_Min(Max_idx, Min_idx)
     Check = Club_Member_Number_List
+    clock += 1      #임시방편
     if(len(Team_X) >= Min_Member and len(Small_Space) >= Min_Member and len(Space_Place) >= Min_Member and len(Mu) >= Min_Member and len(Sof) >= Min_Member and len(Arch) >= Min_Member):
         break
-    if(cnt == 1000):
+    if(cnt == 10000 or clock == 10000):
         break
 
 
@@ -334,7 +336,6 @@ while(len(Team_X) < Min_Member or len(Small_Space) < Min_Member or len(Space_Pla
 #최대 많이 지원 받은 작업실에서 2지망으로 최소 인원 작업실이랑 매칭 되지 않을때
 
 cnt = 0
-
 while True:
 
     Club_Member_Number_List = [len(Team_X),len(Small_Space),len(Space_Place),len(Mu),len(Sof),len(Arch)]
