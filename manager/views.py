@@ -23,7 +23,7 @@ def index(request):
 
 def draw_result(request):
     draw = Draw.objects.all()
-    """
+    
     csvfile = open(file="static/csv/result.csv",
                    mode="w", newline="", encoding="CP949")
     csvwriter = csv.writer(csvfile)
@@ -33,11 +33,9 @@ def draw_result(request):
                         (data.first), (data.second), (data.third)]
         csvwriter.writerow(data_to_list)
     csvfile.close()
-    """
+    
     result = Club_Select_Algorithm().run(request.POST.get('i'))
     context = {
         'result': result,
     }
     return render(request, 'manager/result.html', context)
-
-#def draw_notice(request):

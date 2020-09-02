@@ -25,7 +25,10 @@ SECRET_KEY = '$x*woazv9#-3tg$+3mypa7ob&b%b(9(4$%)d=9^3pa_px)0bl)'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*',]
+ALLOWED_HOSTS = [
+    '.compute.amazonaws.com',
+    '*',
+]
 
 AUTHENTICATION_BACKENDS = [
     # Needed to login by username in Django admin, regardless of `allauth`
