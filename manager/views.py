@@ -34,8 +34,13 @@ def draw_result(request):
         csvwriter.writerow(data_to_list)
     csvfile.close()
     
-    result = Club_Select_Algorithm().run(request.POST.get('i'))
-    context = {
-        'result': result,
-    }
-    return render(request, 'manager/result.html', context)
+    try:
+        result = Club_Select_Algorithm().run(request.POST.get('i'))
+        context = {
+            'result': result,
+        }
+        return render(request, 'manager/result.html', context)
+    except:
+        return redirect('manager:index')
+
+    
